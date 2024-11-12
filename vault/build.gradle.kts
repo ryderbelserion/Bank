@@ -1,3 +1,9 @@
+plugins {
+    alias(libs.plugins.shadow)
+}
+
+project.version = "1.7.3"
+
 repositories {
     maven("https://repo.papermc.io/repository/maven-public")
 }
@@ -11,6 +17,11 @@ dependencies {
 }
 
 tasks {
+    shadowJar {
+        archiveBaseName.set("Vault")
+        archiveClassifier.set("")
+    }
+
     processResources {
         inputs.properties("apiVersion" to libs.versions.minecraft.get())
 
