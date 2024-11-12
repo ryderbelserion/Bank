@@ -1,63 +1,44 @@
 plugins {
-    alias(libs.plugins.shadow)
+    `maven-publish`
 
     `java-library`
 }
 
-repositories {
-    maven("https://repo.papermc.io/repository/maven-public")
+subprojects {
+    apply(plugin = "maven-publish")
+    apply(plugin = "java-library")
 
-    maven("https://jitpack.io")
+    group = "com.ryderbelserion.bank"
+    description = "An alternative to vault."
+    version = "1.0.0"
 
-    mavenCentral()
-}
+    repositories {
+        maven("https://jitpack.io")
 
-dependencies {
-    api("com.github.MilkBowl", "VaultAPI", "1.7") {
-        exclude("org.bukkit", "*")
+        mavenCentral()
     }
 
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    }
-}
-
-tasks {
-    assemble {
-        dependsOn(shadowJar)
-
-        doLast {
-            copy {
-                from(shadowJar.get())
-                into(rootProject.projectDir.resolve("jars"))
-            }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
         }
+
+        withJavadocJar()
+        withSourcesJar()
     }
 
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-        options.release.set(21)
-    }
+    tasks {
+        compileJava {
+            options.encoding = Charsets.UTF_8.name()
+            options.release.set(21)
+        }
 
-    shadowJar {
-        archiveBaseName.set(rootProject.name)
-        archiveClassifier.set("")
-    }
+        javadoc {
+            options.encoding = Charsets.UTF_8.name()
+        }
 
-    processResources {
-        inputs.properties("name" to rootProject.name)
-        inputs.properties("version" to project.version)
-        inputs.properties("group" to project.group)
-        inputs.properties("apiVersion" to libs.versions.minecraft.get())
-        inputs.properties("description" to project.properties["description"])
-        inputs.properties("website" to project.properties["website"])
-
-        filesMatching("paper-plugin.yml") {
-            expand(inputs.properties)
+        processResources {
+            filteringCharset = Charsets.UTF_8.name()
         }
     }
 }

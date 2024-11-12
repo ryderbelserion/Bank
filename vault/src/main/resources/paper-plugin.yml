@@ -1,0 +1,9 @@
+name: 'Vault'
+main: 'net.milkbowl.vault.Vault'
+
+version: '1.7.3'
+api-version: '${apiVersion}'
+description: 'Vault of common APIs for Bukkit Plugins'
+website: 'https://github.com/MilkBowl/Vault'
+
+folia-supported: true
