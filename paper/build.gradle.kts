@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.runPaper)
     alias(libs.plugins.shadow)
 }
 
@@ -13,6 +14,14 @@ dependencies {
 }
 
 tasks {
+    runServer {
+        jvmArgs("-Dnet.kyori.ansi.colorLevel=truecolor")
+
+        defaultCharacterEncoding = Charsets.UTF_8.name()
+
+        minecraftVersion(libs.versions.minecraft.get())
+    }
+
     assemble {
         dependsOn(shadowJar)
 
