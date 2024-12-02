@@ -1,0 +1,15 @@
+[plugins]
+runPaper = { id = "xyz.jpenilla.run-paper", version.ref = "runPaper" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+
+[versions]
+# Paper API
+paper = "1.21.3-R0.1-SNAPSHOT"
+minecraft = "1.21.3"
+
+# Gradle Plugins
+runPaper = "2.3.1"
+shadow = "8.3.0"
+
+[libraries]
+paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
